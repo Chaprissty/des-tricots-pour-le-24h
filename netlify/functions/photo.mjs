@@ -1,0 +1,2 @@
+import {store} from './_shared.mjs';
+export default async request=>{const key=new URL(request.url).searchParams.get('key')||'';if(!/^images\/[a-z0-9-]+\.(jpg|png|webp)$/.test(key))return new Response('Introuvable',{status:404});const data=await store().get(key,{type:'arrayBuffer'});if(!data)return new Response('Introuvable',{status:404});const ext=key.split('.').pop();return new Response(data,{headers:{'content-type':ext==='jpg'?'image/jpeg':`image/${ext}`,'cache-control':'public, max-age=3600'}})};
