@@ -54,3 +54,12 @@ export default async request => {
     { 'set-cookie': sessionCookie() }
   );
 };
+
+export const config = {
+  path: "/api/login",
+  rateLimit: {
+    windowLimit: 10,
+    windowSize: 60,
+    aggregateBy: ["ip", "domain"]
+  }
+};
